@@ -1,10 +1,7 @@
-require 'octokit'
+require 'httparty'
 
 # Provide authentication credentials
-client = Octokit::Client.new(:access_token => ENV["DEPENDABOT_REPORTER_TOKEN"])
+access_token = ENV["DEPENDABOT_REPORTER_TOKEN"]
 
-# You can still use the username/password syntax by replacing the password value with your PAT.
-# client = Octokit::Client.new(:login => 'defunkt', :password => 'personal_access_token')
-
-# Fetch the current user
-client.user
+HTTParty.get("https://api.github.com/repos/pulibrary/figgy/dependabot/alerts", headers: {"Accept" => "application/vnd.github+json", "
+Authorization" => "Bearer #{access_token}", "X-GitHub-Api-Version" => "2022-11-28"})
